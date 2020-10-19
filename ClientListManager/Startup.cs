@@ -1,3 +1,5 @@
+using ClientListManager.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,12 @@ namespace ClientListManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+/*            services.AddDbContext<ClientContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ClientContext")));*/
+
+            services.AddDbContext<ClientListManagerContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ClientListManagerContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
