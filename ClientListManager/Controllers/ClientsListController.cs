@@ -13,16 +13,20 @@ using System.IO;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using ClientListManager.Services;
 
 namespace ClientListManager.Controllers
 {
     public class ClientsListController : Controller
     {
-        private readonly ClientListManagerContext _context;
+        private readonly ClientListManagerContext _context; //Context wg dobry praktyk powinień być w osobnym serwisie
 
-        public ClientsListController(ClientListManagerContext context)
+        private readonly IFileImportService _fileImportService;
+
+        public ClientsListController(ClientListManagerContext context, IFileImportService fileImportService)
         {
             _context = context;
+            _fileImportService = fileImportService;
         }
 
         // GET: ClientsList
@@ -157,43 +161,18 @@ namespace ClientListManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(IFormFile file, [FromServices] IHostEnvironment hostEnvironment)
+        public async Task<IActionResult> Index(IFormFile file, [FromServices] IHostEnvironment hostEnvironment) // Działa, ale jest brzydkie
         {
-            string fileName = $"{hostEnvironment.ContentRootPath}\\wwwroot\\files\\{file.FileName}";
-            using (FileStream fileStream = System.IO.File.Create(fileName))
+            //string filePath = $"{hostEnvironment.ContentRootPath}\\wwwroot\\files\\{file.FileName}"; //IformFile do stream przesłać do metody GetClientList
+            using (FileStream fileStream = System.IO.File.Create(file.ToString()))
             {
                 file.CopyTo(fileStream);
                 fileStream.Flush();
             }
 
-            GetClientList(file.FileName);
+            await _fileImportService.UploadClientsFromFile(file);
 
             return View(await _context.Client.ToListAsync());
-        }
-
-        private async void GetClientList(string fName)
-        {
-            var fileName = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fName;
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            using (var stream = System.IO.File.Open(fileName, FileMode.Open, FileAccess.Read))
-            {
-                using var reader = new StreamReader(stream);
-                using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-                csv.Configuration.HeaderValidated = null;
-                csv.Configuration.MissingFieldFound = null;
-                var records = csv.GetRecords<Client>();
-
-                //csv.GetRecords<Client>().ToList().Dump();
-
-                foreach (var item in records)
-                {
-                    _context.Add(item);                    
-                    await _context.SaveChangesAsync();
-                }
-            }
-
-            System.IO.File.Delete(fileName);
-
         }
     }
 }

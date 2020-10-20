@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ClientListManager.Services;
 
 namespace ClientListManager
 {
@@ -27,8 +28,7 @@ namespace ClientListManager
         {
             services.AddControllersWithViews();
 
-/*            services.AddDbContext<ClientContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ClientContext")));*/
+            services.AddTransient<IFileImportService, FileImportService>();
 
             services.AddDbContext<ClientListManagerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ClientListManagerContext")));
@@ -58,7 +58,7 @@ namespace ClientListManager
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=ClientsList}/{action=Index}/{id?}");
             });
         }
     }
