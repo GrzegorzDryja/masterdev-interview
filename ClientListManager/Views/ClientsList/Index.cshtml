@@ -9,6 +9,20 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    <h2>Wgraj listę klientów z pliku CSV</h2>
+    @using (Html.BeginForm("Index",
+                           "Home",
+                           FormMethod.Post,
+                           new { enctype = "multipart/form-data" }))
+    {
+        <label for="file">Wybierz plik:</label>
+        <input type="file" name="file" id="file" /><br><br>
+        <input type="submit" value="Załaduj" />
+        <br><br>
+        @ViewBag.Message
+    }
+</p>
 <table class="table">
     <thead>
         <tr>
