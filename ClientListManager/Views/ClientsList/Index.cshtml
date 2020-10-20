@@ -6,23 +6,16 @@
 
 <h1>Lista klientów</h1>
 
+
 <p>
     <a asp-action="Create">Dodaj nowego klienta</a>
 </p>
-<p>
-    <h2>Wgraj listę klientów z pliku CSV</h2>
-    @using (Html.BeginForm("Index",
-                           "Home",
-                           FormMethod.Post,
-                           new { enctype = "multipart/form-data" }))
-    {
-        <label for="file">Wybierz plik:</label>
-        <input type="file" name="file" id="file" />
-        <input type="submit" value="Załaduj" />
-        <br><br>
-        @ViewBag.Message
-    }
-</p>
+<form asp-action="Index" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <hr />
+    <button type="submit">Wgraj z CSV</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
