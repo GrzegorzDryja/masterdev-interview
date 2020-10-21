@@ -58,7 +58,7 @@ namespace ClientListManager
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ClientsList}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

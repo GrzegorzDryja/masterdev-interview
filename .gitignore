@@ -31,3 +31,6 @@ msbuild.wrn
 
 # Visual Studio 2017
 .vs/
+ClientListManager/.vs/ClientListManager/v16/.suo
+ClientListManager/.vs/ClientListManager/v16/.suo
+*.cache
