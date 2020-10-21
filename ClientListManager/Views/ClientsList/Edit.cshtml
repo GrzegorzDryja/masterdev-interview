@@ -25,7 +25,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="BirthYear" class="control-label"></label>
-                <input asp-for="BirthYear" class="form-control" />
+                <select asp-for="BirthYear"
+                        asp-items="@(new SelectList(Enumerable.Range(1901, DateTime.Now.Year - 1901).ToList()))">
+                </select>
                 <span asp-validation-for="BirthYear" class="text-danger"></span>
             </div>
             <div class="form-group">

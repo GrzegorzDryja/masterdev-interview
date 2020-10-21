@@ -161,7 +161,7 @@ namespace ClientListManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(IFormFile file, [FromServices] IHostEnvironment hostEnvironment) // Działa, ale jest brzydkie
+        public async Task<IActionResult> Index(IFormFile file) // Działa, ale jest brzydkie
         {
             //string filePath = $"{hostEnvironment.ContentRootPath}\\wwwroot\\files\\{file.FileName}"; //IformFile do stream przesłać do metody GetClientList
             using (FileStream fileStream = System.IO.File.Create(file.ToString()))

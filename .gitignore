@@ -1,18 +1,33 @@
+*.cache
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
 
-*.dll
-ClientListManager/.vs/*
-ClientListManager/appsettings.json
-ClientListManager/bin/*
-ClientListManager/obj/*
-ClientListManager/.vs/*
-.vs/masterdev-interview/v16/.suo
-.vs/slnx.sqlite
-.vs/VSWorkspaceState.json
-ClientListManager/.vs/ClientListManager/v16/.suo
-ClientListManager/.vs/ClientListManager/v16/.suo
-ClientListManager/obj/ClientListManager.csproj.nuget.g.props
-ClientListManager/obj/ClientListManager.csproj.nuget.dgspec.json
-ClientListManager/obj/ClientListManager.csproj.nuget.dgspec.json
-ClientListManager/obj/ClientListManager.csproj.nuget.dgspec.json
-ClientListManager/obj/ClientListManager.csproj.nuget.g.props
-ClientListManager/obj/ClientListManager.csproj.nuget.g.targets
+# Visual Studio Code
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2017
+.vs/
